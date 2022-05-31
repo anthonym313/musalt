@@ -1,21 +1,14 @@
-require("@nomiclabs/hardhat-waffle");
+// https://xhi613qufvya.usemoralis.com:2053/server
 
-// This is a sample Hardhat task. To learn how to create your own go to
-// https://hardhat.org/guides/create-task.html
-task("accounts", "Prints the list of accounts", async (taskArgs, hre) => {
-  const accounts = await hre.ethers.getSigners();
 
-  for (const account of accounts) {
-    console.log(account.address);
-  }
-});
+require('@nomiclabs/hardhat-waffle');
 
-// You need to export an object to set up your config
-// Go to https://hardhat.org/config/ to learn more
-
-/**
- * @type import('hardhat/config').HardhatUserConfig
- */
 module.exports = {
-  solidity: "0.8.4",
-};
+  solidity: '0.8.0',
+  networks: {
+    ropsten:{
+      url: 'https://speedy-nodes-nyc.moralis.io/1eb0532931c1cd11103f3b54/eth/ropsten',
+      accounts: ['b05580fa67b004e1ba084fddc249e0d331ee0571339ffbc2a24f2e8145560356']
+    }
+  }
+}
