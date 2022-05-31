@@ -22,10 +22,27 @@ export const TransactionProvider = ({children}) =>{
     const [connectedAccount, setConnectedAccount] = useState('');
     
     const checkIfWalletIsConnected = async() => {
-        if(!ethereum) return alert('Please install metamask');
+        try{
+            if(!ethereum) return alert('Please install metamask');
 
-        const accounts = await ethereum.request({ method: 'eth_accounts'});
-        console.log(accounts);
+            const accounts = await ethereum.request({ method: 'eth_accounts'});
+
+            if(accounts.length){
+                setConnectedAccount(accounts[0]);
+
+                // getAllTransactions();
+            }else{
+                console.log(
+                    "No accounts found"
+                )
+            }
+        }catch(error){
+            console.log(error);
+            throw new Error('No ethereum object.')
+        }
+        
+
+        
     }
 
     const connectWallet = async () => {
@@ -45,7 +62,7 @@ export const TransactionProvider = ({children}) =>{
     },[]);
 
     return(
-        <TransactionContext.Provider value = {{connectWallet}}>
+        <TransactionContext.Provider value = {{connectWallet, connectedAccount}}>
             {children}
         </TransactionContext.Provider>
     )
