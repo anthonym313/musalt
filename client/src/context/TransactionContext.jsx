@@ -11,6 +11,7 @@ const getEthereumContract = () => {
     const provider = new ethers.providers.Web3Provider(ethereum);
     const signer = provider.getSigner();
     const transactionContract = new ethers.Contract(contractAddress, contractABI, signer);
+    
 
     return transactionContract;
 }
@@ -19,6 +20,7 @@ export const TransactionProvider = ({children}) =>{
 
     const [connectedAccount, setConnectedAccount] = useState('');
     const [formData, setFormData] = useState({addressTo:'', amount:"", keyword:'', message:''});
+    const [isLoading, setIsLoading] = useState(false);
 
     const handleChange = (e, name)=>{
         setFormData((prevState)=>({ ...prevState, [name]:e.target.value}));
@@ -70,7 +72,7 @@ export const TransactionProvider = ({children}) =>{
         await ethereum.request({
             method:'eth_sendTransaction',
             params:[{
-                from:currentAccount,
+                from:connectedAccount,
                 to:addressTo,
                 gas:'0x5208', //21000 GWEI
                 value: parsedAmount, //0.0001
@@ -78,6 +80,14 @@ export const TransactionProvider = ({children}) =>{
         });
         const transactionHash = await transactionContract.addToBlockchain( addressTo,parsedAmount,message, keyword);
 
+        setIsLoading(true);
+        console.log(`Loading - ${transactionHash.hash}`);
+        await transactionHash.wait();
+        
+        setIsLoading(false);
+        console.log(`Success - ${transactionHash.hash}`);
+
+        const transactionCount = await transactionContract.getTransactionCount();
 
         }catch(error){
             console.log(error);
