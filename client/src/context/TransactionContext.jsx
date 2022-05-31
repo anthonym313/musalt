@@ -12,9 +12,7 @@ const getEthereumContract = () => {
     const signer = provider.getSigner();
     const transactionContract = new ethers.Contract(contractAddress, contractABI, signer);
 
-    console.log({
-        provider,signer, transactionContract
-    });
+    return transactionContract;
 }
 
 export const TransactionProvider = ({children}) =>{
@@ -64,8 +62,23 @@ export const TransactionProvider = ({children}) =>{
     const sendTransaction = async () => {
         try{
             if(!ethereum) return alert('Please install metamask');
+            
+        const {addressTo, amount, keyword,message} = formData;
+        const transactionContract = getEthereumContract();
+        const parsedAmount = ethers.utils.parseEther(amount)
 
-            //get the data from the form...
+        await ethereum.request({
+            method:'eth_sendTransaction',
+            params:[{
+                from:currentAccount,
+                to:addressTo,
+                gas:'0x5208', //21000 GWEI
+                value: parsedAmount, //0.0001
+            }]
+        });
+        const transactionHash = await transactionContract.addToBlockchain( addressTo,parsedAmount,message, keyword);
+
+
         }catch(error){
             console.log(error);
             throw new Error('No ethereum object.')
@@ -77,7 +90,7 @@ export const TransactionProvider = ({children}) =>{
     },[]);
 
     return(
-        <TransactionContext.Provider value = {{connectWallet, connectedAccount,formData,setFormData,handleChange}}>
+        <TransactionContext.Provider value = {{connectWallet, connectedAccount,formData,handleChange,sendTransaction}}>
             {children}
         </TransactionContext.Provider>
     )
