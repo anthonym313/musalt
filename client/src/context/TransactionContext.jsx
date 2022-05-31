@@ -67,30 +67,32 @@ export const TransactionProvider = ({children}) =>{
         try{
             if(!ethereum) return alert('Please install metamask');
             
-        const {addressTo, amount, keyword,message} = formData;
-        const transactionContract = getEthereumContract();
-        const parsedAmount = ethers.utils.parseEther(amount)
+            const {addressTo, amount, keyword,message} = formData;
+            const transactionContract = getEthereumContract();
+            const parsedAmount = ethers.utils.parseEther(amount)
 
-        await ethereum.request({
-            method:'eth_sendTransaction',
-            params:[{
-                from:connectedAccount,
-                to:addressTo,
-                gas:'0x5208', //21000 GWEI
-                value: parsedAmount, //0.0001
-            }]
-        });
-        const transactionHash = await transactionContract.addToBlockchain( addressTo,parsedAmount,message, keyword);
+            await ethereum.request({
+                method:'eth_sendTransaction',
+                params:[{
+                    from:connectedAccount,
+                    to:addressTo,
+                    gas:'0x5208', //21000 GWEI
+                    value: parsedAmount._hex, //0.0001
+                }]
+            });
 
-        setIsLoading(true);
-        console.log(`Loading - ${transactionHash.hash}`);
-        await transactionHash.wait();
-        
-        setIsLoading(false);
-        console.log(`Success - ${transactionHash.hash}`);
+            const transactionHash = await transactionContract.addToBlockchain( addressTo,parsedAmount,message, keyword);
 
-        const transactionCount = await transactionContract.getTransactionCount();
+            setIsLoading(true);
+            console.log(`Loading - ${transactionHash.hash}`);
+            await transactionHash.wait();
+            
+            setIsLoading(false);
+            console.log(`Success - ${transactionHash.hash}`);
 
+            const transactionCount = await transactionContract.getTransactionCount();
+            setTransactionCount(transactionCount.toNumber())
+            window.location.reload();
         }catch(error){
             console.log(error);
             throw new Error('No ethereum object.')
