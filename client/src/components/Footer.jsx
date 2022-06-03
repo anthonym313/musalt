@@ -14,18 +14,22 @@ const Footer = () => {
                     <p className='text-white text-base text-center mx-2 cursor-pointer'>Tutorials</p>
                     <p className='text-white text-base text-center mx-2 cursor-pointer'>Wallets</p>
                 </div>
-                <div className='flex justify-center items-center flex-col mt-5'>
-                    <p className='text-white text-sm text-center'>Come join us!</p>
-                    <div className='flex justify center items-center justify-evenly justify-between flex-row mt-2'>
-                        <a href='https://github.com/anthonym313/musalt' target='_blank'>
-                            <p className='text-white text-sm text-center'>{<AiFillGithub fontSize={21} className="text-white"/>}</p>
-                        </a>
-                        <a href='https://www.linkedin.com/in/anthonyamartin/' target='_blank'>
-                            <p className='text-white text-sm text-center'>{<AiFillLinkedin fontSize={21} className="text-white"/>}</p>
-                        </a>
-
-                    </div>
+            </div>
+            <div className='flex justify-center items-center flex-col mt-5'>
+                <p className='text-white text-sm text-center'>Come join us!</p>
+                <div className='flex items-center justify-evenly flex-row mt-2'>
+                    <a href='https://github.com/anthonym313/musalt' target='_blank'>
+                        <p className='text-white text-sm text-center'>{<AiFillGithub fontSize={21} className="text-white"/>}</p>
+                    </a>
+                    <a href='https://www.linkedin.com/in/anthonyamartin/' target='_blank'>
+                        <p className='text-white text-sm text-center'>{<AiFillLinkedin fontSize={21} className="text-white"/>}</p>
+                    </a>
                 </div>
+            </div>
+            <div className='sm:w-[90%] w-full h-[0.25px] bg-gray-400 mt-5'/>
+            <div className='sm:w-[90%] w-full flex justify-between items-center mt-3'>
+                <p className='text-white text-sm text-center'>@musalt 2022</p>
+                <p className='text-white text-sm text-center'>All rights reserved</p>
             </div>
 
         </div>
