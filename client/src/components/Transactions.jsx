@@ -27,6 +27,9 @@ const TransactionCard =({addressTo, addressFrom, timestamp,message, keyword, amo
                         <p className='text-white text-base'>Message: {message}</p>
                     </>
                 )}
+                <div className='bg-black p-3 px-5 w-max rounded-3xl mt-5 shadow-2xl'>
+                    <p className='text-[#37c7da]'>{timestamp}</p>
+                </div>
             </div>
         </div>
     </div>
