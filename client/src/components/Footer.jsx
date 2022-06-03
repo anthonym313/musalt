@@ -18,10 +18,10 @@ const Footer = () => {
             <div className='flex justify-center items-center flex-col mt-5'>
                 <p className='text-white text-sm text-center'>Come join us!</p>
                 <div className='flex items-center justify-evenly flex-row mt-2'>
-                    <a href='https://github.com/anthonym313/musalt' target='_blank'>
+                    <a href='https://github.com/anthonym313/musalt' target='_blank' rel='noreferrer noopener'>
                         <p className='text-white text-sm text-center'>{<AiFillGithub fontSize={21} className="text-white"/>}</p>
                     </a>
-                    <a href='https://www.linkedin.com/in/anthonyamartin/' target='_blank'>
+                    <a href='https://www.linkedin.com/in/anthonyamartin/' target='_blank' rel='noreferrer noopener'>
                         <p className='text-white text-sm text-center'>{<AiFillLinkedin fontSize={21} className="text-white"/>}</p>
                     </a>
                 </div>
