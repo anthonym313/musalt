@@ -1,4 +1,4 @@
-<h1> Musalt</h1>
+<h1 align='center'>Musalt - Web 3.0 Blockchain Application</h1>
 
 **Musalt** is a crypto payment platform, that utilizes blockchain technology to send Ethereum connected to [MetaMask](https://metamask.io/).
 
